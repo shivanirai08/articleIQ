@@ -1,0 +1,12 @@
+# ArticleIQ backend dependencies
+# Versions will be pinned when packages are installed in later checkpoints.
+#
+# Planned (not installed yet):
+#   fastapi          - HTTP API framework
+#   uvicorn          - ASGI server
+#   pydantic         - data validation (comes with FastAPI)
+#   pydantic-settings - typed .env loading
+#   spacy            - classical NLP
+#   google-genai or google-generativeai - Gemini SDK (exact package chosen in CP9)
+#
+# Checkpoint 3 will add the first real pinned dependencies.
