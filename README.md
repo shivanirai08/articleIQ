@@ -37,13 +37,24 @@ articleIQ/
 |------|--------|
 | Planning & architecture | Done (Checkpoint 1) |
 | Folder structure | Done (Checkpoint 2) |
-| FastAPI app | Not started (Checkpoint 3) |
+| FastAPI app | Done (Checkpoint 3) — `/health`, `/api/v1/ping`, `/docs` |
+| Typed config / `.env` | Not started (Checkpoint 4) |
 | Next.js app | Not started (Checkpoint 5) |
 | NLP / LLM features | Later checkpoints |
 
-## How to run
+## How to run (backend — Checkpoint 3)
 
-Instructions will be added when the backend (Checkpoint 3+) and frontend (Checkpoint 5+) are initialized.
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+
+Then open http://localhost:8000/docs
+
+Frontend run instructions arrive in Checkpoint 5.
 
 ## Academic note
 
