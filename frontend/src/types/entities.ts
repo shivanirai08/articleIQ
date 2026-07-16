@@ -13,4 +13,9 @@ export type EntityItem = {
 
 export type EntitiesResponse = {
   entities: EntityItem[];
+  spacy_model: string;
+  original_length: number;
+  cleaned_length: number;
+  entity_count: number;
+  unique_labels: string[];
 };

@@ -9,6 +9,7 @@ import type {
   SummarizeResponse,
   SentimentResponse,
   KeywordsResponse,
+  EntitiesResponse,
 } from "@/types";
 
 export class ApiError extends Error {
@@ -154,4 +155,19 @@ export async function extractKeywords(
     body: JSON.stringify(body),
   });
   return handleResponse<KeywordsResponse>(response);
+}
+
+/** POST /api/v1/entities — spaCy NER (Checkpoint 13, O4) */
+export async function extractEntities(
+  body: ArticleTextRequest,
+): Promise<EntitiesResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/entities`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<EntitiesResponse>(response);
 }

@@ -18,3 +18,11 @@ class EntityItem(BaseModel):
 
 class EntitiesResponse(BaseModel):
     entities: list[EntityItem]
+    spacy_model: str
+    original_length: int = Field(..., ge=0)
+    cleaned_length: int = Field(..., ge=0)
+    entity_count: int = Field(..., ge=0)
+    unique_labels: list[str] = Field(
+        default_factory=list,
+        description="Distinct entity types found (e.g. PERSON, ORG, GPE)",
+    )
