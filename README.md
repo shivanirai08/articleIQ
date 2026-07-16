@@ -38,7 +38,7 @@ articleIQ/
 | Folder structure | Done (Checkpoint 2) |
 | FastAPI app | Done (Checkpoint 3) — `/health`, `/api/v1/ping`, `/docs` |
 | Typed config / `.env` | Done (Checkpoint 4) — pydantic-settings |
-| Next.js app | Not started (Checkpoint 5) |
+| Next.js app | Done (Checkpoint 5) — shell + backend health check |
 | NLP / LLM features | Later checkpoints |
 
 ## How to run (backend — Checkpoint 3)
@@ -55,7 +55,16 @@ Then open http://localhost:8000/docs
 
 **Config:** copy `backend/.env.example` to `backend/.env` before running.
 
-Frontend run instructions arrive in Checkpoint 5.
+## How to run (frontend — Checkpoint 5)
+
+```bash
+cd frontend
+cp .env.example .env.local
+npm install
+npm run dev
+```
+
+Open http://localhost:3000 (run backend on :8000 in a second terminal).
 
 ## Academic note
 
