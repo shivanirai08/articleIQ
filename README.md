@@ -43,7 +43,8 @@ articleIQ/
 | NLP preprocessing (O1) | Done (Checkpoint 7) — `POST /api/v1/preprocess` |
 | spaCy tokenization | Done (Checkpoint 8) — `POST /api/v1/tokenize` |
 | LLM (Grok/Groq) | Done — `POST /api/v1/llm/demo` |
-| Summarization / sentiment / QA | Checkpoints 10+ |
+| Summarization (O2) | Done — `POST /api/v1/summarize` |
+| Sentiment / keywords / QA | Checkpoints 11+ |
 
 ## How to run (backend — Checkpoint 3)
 

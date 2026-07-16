@@ -13,7 +13,8 @@ The **Python FastAPI backend** for ArticleIQ.
 | 7 Preprocessing (O1) | Done |
 | 8 spaCy tokenization | Done |
 | 9 Grok/Groq LLM | Done — requires `GROK_API_KEY` |
-| 10 Summarization | Next |
+| 10 Summarization (O2) | Done |
+| 11 Sentiment | Next |
 
 ## Setup & run
 
@@ -37,6 +38,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 | GET `/health` | Liveness |
 | POST `/api/v1/preprocess` | Text cleaning (O1) |
 | POST `/api/v1/tokenize` | spaCy tokens + sentences |
+| POST `/api/v1/summarize` | Abstractive news summary (O2) |
 | POST `/api/v1/llm/demo` | LLM integration test (needs `GROK_API_KEY`) |
 
 Test your key:

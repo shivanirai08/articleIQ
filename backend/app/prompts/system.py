@@ -1,9 +1,8 @@
-"""System prompts shared across Gemini features (Checkpoint 9+).
+"""System prompts shared across LLM features (Checkpoint 9+).
 
 Prompt engineering technique: System Instruction
   - Sets persistent role, tone, and constraints for the model.
-  - Sent as the `system` parameter in Anthropic's Messages API.
-  - Think of it as the employee handbook; user messages are customer requests.
+  - Sent as the `system` message in chat-completions APIs.
 """
 
 ARTICLEIQ_SYSTEM_PROMPT = """You are ArticleIQ, an intelligent news analysis assistant built for an academic NLP project.

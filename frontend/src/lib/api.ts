@@ -6,6 +6,7 @@ import type {
   PreprocessResponse,
   TokenizeResponse,
   ValidateArticleResponse,
+  SummarizeResponse,
 } from "@/types";
 
 export class ApiError extends Error {
@@ -106,4 +107,19 @@ export async function llmDemo(message: string): Promise<LlmDemoResponse> {
     body: JSON.stringify({ message }),
   });
   return handleResponse<LlmDemoResponse>(response);
+}
+
+/** POST /api/v1/summarize — abstractive news summary (Checkpoint 10, O2) */
+export async function summarizeArticle(
+  body: ArticleTextRequest,
+): Promise<SummarizeResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/summarize`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<SummarizeResponse>(response);
 }
