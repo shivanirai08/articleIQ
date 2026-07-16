@@ -10,6 +10,7 @@ import type {
   SentimentResponse,
   KeywordsResponse,
   EntitiesResponse,
+  QAResponse,
 } from "@/types";
 
 export class ApiError extends Error {
@@ -170,4 +171,19 @@ export async function extractEntities(
     body: JSON.stringify(body),
   });
   return handleResponse<EntitiesResponse>(response);
+}
+
+/** POST /api/v1/qa — grounded article Q&A (Checkpoint 14, O5) */
+export async function askArticleQuestion(
+  body: ArticleTextRequest & { question: string },
+): Promise<QAResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/qa`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<QAResponse>(response);
 }

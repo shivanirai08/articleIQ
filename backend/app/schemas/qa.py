@@ -20,3 +20,10 @@ class QAResponse(BaseModel):
         ...,
         description="True when the answer is supported by the article text",
     )
+    question: str
+    original_length: int = Field(..., ge=0)
+    cleaned_length: int = Field(..., ge=0)
+    model: str
+    latency_ms: int = Field(..., ge=0)
+    prompt_tokens: int | None = None
+    output_tokens: int | None = None
