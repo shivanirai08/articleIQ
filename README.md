@@ -50,7 +50,7 @@ articleIQ/
 | Q&A (O5) | Done — `POST /api/v1/qa` |
 | Full analyze | Done — `POST /api/v1/analyze` |
 | Interactive UI (O6) | Done — unified analysis workspace |
-| Deploy / hardening | Checkpoints 17+ |
+| Testing / deploy | Checkpoints 17–18 |
 
 ## How to run (backend — Checkpoint 3)
 
