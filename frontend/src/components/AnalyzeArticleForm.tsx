@@ -2,20 +2,10 @@
 
 import { FormEvent, useState } from "react";
 
+import { AnalysisResultsPanel } from "@/components/AnalysisResultsPanel";
 import { analyzeArticle, ApiError } from "@/lib/api";
-import type { AnalyzeResponse, SentimentLabel } from "@/types";
-
-const SAMPLE_ARTICLE =
-  "Apple Inc. announced record quarterly revenue on Tuesday in Cupertino, California. " +
-  "The company said revenue rose eighteen percent year over year, driven by cloud services. " +
-  "Chief executive Tim Cook told investors that operating margins improved significantly.";
-
-const SENTIMENT_STYLES: Record<SentimentLabel, string> = {
-  positive: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
-  negative: "bg-red-500/15 text-red-700 dark:text-red-300",
-  neutral: "bg-slate-500/15 text-slate-700 dark:text-slate-300",
-  mixed: "bg-amber-500/15 text-amber-800 dark:text-amber-300",
-};
+import { SAMPLE_ARTICLE } from "@/lib/sample-article";
+import type { AnalyzeResponse } from "@/types";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -74,73 +64,8 @@ export function AnalyzeArticleForm() {
       </form>
 
       {status === "success" && result && (
-        <div className="mt-4 space-y-4">
-          {result.errors.length > 0 && (
-            <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-sm">
-              <p className="font-semibold text-amber-800 dark:text-amber-300">
-                Partial results — some sections failed
-              </p>
-              <ul className="mt-2 list-inside list-disc text-xs text-[var(--muted)]">
-                {result.errors.map((item) => (
-                  <li key={item.section}>
-                    {item.section}: {item.detail}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {result.summary && (
-            <div className="rounded-lg bg-[var(--accent-muted)]/30 p-4">
-              <p className="text-xs font-semibold uppercase text-[var(--muted)]">Summary</p>
-              <p className="mt-2 text-sm leading-relaxed">{result.summary.summary}</p>
-            </div>
-          )}
-
-          {result.sentiment && (
-            <div className="space-y-2">
-              <span
-                className={`inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase ${SENTIMENT_STYLES[result.sentiment.label]}`}
-              >
-                {result.sentiment.label}
-              </span>
-              <p className="text-sm text-[var(--muted)]">{result.sentiment.rationale}</p>
-            </div>
-          )}
-
-          {result.keywords && result.keywords.keywords.length > 0 && (
-            <div>
-              <p className="text-xs font-semibold uppercase text-[var(--muted)]">Keywords</p>
-              <ul className="mt-2 flex flex-wrap gap-2">
-                {result.keywords.keywords.map((item) => (
-                  <li
-                    key={item.keyword}
-                    className="rounded-full bg-[var(--accent-muted)]/40 px-3 py-1 text-xs font-medium"
-                  >
-                    {item.keyword}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {result.entities && result.entities.entities.length > 0 && (
-            <div>
-              <p className="text-xs font-semibold uppercase text-[var(--muted)]">Entities</p>
-              <ul className="mt-2 space-y-1 text-sm">
-                {result.entities.entities.map((entity, index) => (
-                  <li key={`${entity.start}-${index}`}>
-                    <span className="font-medium">{entity.text}</span>{" "}
-                    <span className="text-xs uppercase text-[var(--muted)]">{entity.label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <p className="text-xs text-[var(--muted)]">
-            Total orchestration time: {result.total_latency_ms} ms
-          </p>
+        <div className="mt-4">
+          <AnalysisResultsPanel result={result} />
         </div>
       )}
 

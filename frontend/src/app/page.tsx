@@ -1,55 +1,27 @@
-import { AnalyzeArticleForm } from "@/components/AnalyzeArticleForm";
+import { ArticleAnalysisWorkspace } from "@/components/ArticleAnalysisWorkspace";
 import { BackendStatus } from "@/components/BackendStatus";
-import { EntitiesArticleForm } from "@/components/EntitiesArticleForm";
-import { KeywordsArticleForm } from "@/components/KeywordsArticleForm";
-import { LlmDemoForm } from "@/components/LlmDemoForm";
-import { PreprocessArticleForm } from "@/components/PreprocessArticleForm";
-import { QAArticleForm } from "@/components/QAArticleForm";
-import { SentimentArticleForm } from "@/components/SentimentArticleForm";
-import { SummarizeArticleForm } from "@/components/SummarizeArticleForm";
-import { TokenizeArticleForm } from "@/components/TokenizeArticleForm";
-import { ValidateArticleForm } from "@/components/ValidateArticleForm";
+import { DevToolsPanel } from "@/components/DevToolsPanel";
 import { apiBaseUrl } from "@/lib/config";
 
 export default function HomePage() {
   return (
-    <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
+    <main className="mx-auto flex min-h-screen max-w-5xl flex-col gap-8 px-6 py-12 sm:py-16">
       <header className="space-y-3">
         <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent)]">
-          ArticleIQ · Checkpoint 15
+          ArticleIQ · Checkpoint 16
         </p>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Intelligent News Summarization &amp; Sentiment Analysis
+          Intelligent News Analysis
         </h1>
-        <p className="text-base leading-relaxed text-[var(--muted)]">
-          Interactive web interface for NLP preprocessing, summaries, sentiment,
-          keywords, entities, and article Q&amp;A — now including summarization (O2),
-          sentiment analysis (O3), keyword extraction (O4), named entity recognition,
-          and grounded Q&amp;A (O5), plus one-call full analysis orchestration.
+        <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">
+          Paste a news article to get an AI-powered summary, sentiment, keywords, and
+          named entities — then ask grounded questions about the same story.
         </p>
       </header>
 
       <BackendStatus />
 
-      <AnalyzeArticleForm />
-
-      <SummarizeArticleForm />
-
-      <SentimentArticleForm />
-
-      <KeywordsArticleForm />
-
-      <EntitiesArticleForm />
-
-      <QAArticleForm />
-
-      <LlmDemoForm />
-
-      <TokenizeArticleForm />
-
-      <PreprocessArticleForm />
-
-      <ValidateArticleForm />
+      <ArticleAnalysisWorkspace />
 
       <section className="rounded-xl border border-[var(--border)] p-5 text-sm">
         <h2 className="font-semibold">Configuration</h2>
@@ -59,18 +31,15 @@ export default function HomePage() {
             {apiBaseUrl}
           </code>
         </p>
-        <p className="mt-2 text-[var(--muted)]">
-          Set via{" "}
-          <code className="font-mono text-xs">NEXT_PUBLIC_API_BASE_URL</code> in{" "}
-          <code className="font-mono text-xs">frontend/.env.local</code>
-        </p>
       </section>
+
+      <DevToolsPanel />
 
       <section className="rounded-xl border border-dashed border-[var(--border)] p-5 text-sm text-[var(--muted)]">
         <h2 className="font-semibold text-[var(--foreground)]">Coming next</h2>
         <ul className="mt-2 list-inside list-disc space-y-1">
-          <li>Checkpoint 16 — unified article analysis UI</li>
           <li>Checkpoint 17 — testing and hardening</li>
+          <li>Checkpoint 18 — deployment and presentation pack</li>
         </ul>
       </section>
     </main>

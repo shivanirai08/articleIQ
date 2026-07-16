@@ -49,7 +49,8 @@ articleIQ/
 | Entities / NER (O4) | Done — `POST /api/v1/entities` |
 | Q&A (O5) | Done — `POST /api/v1/qa` |
 | Full analyze | Done — `POST /api/v1/analyze` |
-| Unified UI / deploy | Checkpoints 16+ |
+| Interactive UI (O6) | Done — unified analysis workspace |
+| Deploy / hardening | Checkpoints 17+ |
 
 ## How to run (backend — Checkpoint 3)
 
