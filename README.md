@@ -44,7 +44,8 @@ articleIQ/
 | spaCy tokenization | Done (Checkpoint 8) — `POST /api/v1/tokenize` |
 | LLM (Grok/Groq) | Done — `POST /api/v1/llm/demo` |
 | Summarization (O2) | Done — `POST /api/v1/summarize` |
-| Sentiment / keywords / QA | Checkpoints 11+ |
+| Sentiment (O3) | Done — `POST /api/v1/sentiment` |
+| Keywords / entities / QA | Checkpoints 12+ |
 
 ## How to run (backend — Checkpoint 3)
 

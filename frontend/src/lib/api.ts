@@ -7,6 +7,7 @@ import type {
   TokenizeResponse,
   ValidateArticleResponse,
   SummarizeResponse,
+  SentimentResponse,
 } from "@/types";
 
 export class ApiError extends Error {
@@ -122,4 +123,19 @@ export async function summarizeArticle(
     body: JSON.stringify(body),
   });
   return handleResponse<SummarizeResponse>(response);
+}
+
+/** POST /api/v1/sentiment — news sentiment classification (Checkpoint 11, O3) */
+export async function analyzeSentiment(
+  body: ArticleTextRequest,
+): Promise<SentimentResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/sentiment`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<SentimentResponse>(response);
 }

@@ -27,3 +27,9 @@ class SentimentResponse(BaseModel):
         description="Optional model confidence score",
     )
     rationale: str = Field(..., description="Short explanation of the label")
+    original_length: int = Field(..., ge=0)
+    cleaned_length: int = Field(..., ge=0)
+    model: str
+    latency_ms: int = Field(..., ge=0)
+    prompt_tokens: int | None = None
+    output_tokens: int | None = None

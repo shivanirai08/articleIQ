@@ -10,4 +10,10 @@ export type SentimentResponse = {
   label: SentimentLabel;
   confidence: number | null;
   rationale: string;
+  original_length: number;
+  cleaned_length: number;
+  model: string;
+  latency_ms: number;
+  prompt_tokens: number | null;
+  output_tokens: number | null;
 };
