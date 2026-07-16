@@ -67,6 +67,18 @@ class Settings(BaseSettings):
         description="Default Gemini model id for summary/sentiment/QA",
     )
 
+    # --- Classical NLP (Checkpoint 8+) ---
+    spacy_model: str = Field(
+        default="en_core_web_sm",
+        description="spaCy pipeline model name (download separately)",
+    )
+    spacy_token_preview_limit: int = Field(
+        default=150,
+        ge=10,
+        le=1000,
+        description="Max tokens returned in API preview responses",
+    )
+
     @field_validator("cors_origins", mode="before")
     @classmethod
     def parse_cors_origins(cls, value: object) -> list[str]:

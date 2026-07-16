@@ -3,6 +3,7 @@ import type {
   ArticleTextRequest,
   HealthResponse,
   PreprocessResponse,
+  TokenizeResponse,
   ValidateArticleResponse,
 } from "@/types";
 
@@ -76,4 +77,19 @@ export async function preprocessArticle(
     body: JSON.stringify(body),
   });
   return handleResponse<PreprocessResponse>(response);
+}
+
+/** POST /api/v1/tokenize — spaCy tokenization (Checkpoint 8) */
+export async function tokenizeArticle(
+  body: ArticleTextRequest,
+): Promise<TokenizeResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/tokenize`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<TokenizeResponse>(response);
 }

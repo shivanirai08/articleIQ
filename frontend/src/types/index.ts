@@ -17,3 +17,4 @@ export type {
   SentimentResponse,
 } from "@/types/sentiment";
 export type { SummarizeRequest, SummarizeResponse } from "@/types/summarize";
+export type { TokenizeRequest, TokenizeResponse, TokenItem, SentenceItem } from "@/types/tokenize";

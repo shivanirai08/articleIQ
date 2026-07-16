@@ -41,7 +41,8 @@ articleIQ/
 | Next.js app | Done (Checkpoint 5) — shell + backend health check |
 | API contracts | Done (Checkpoint 6) — Pydantic + TypeScript + validate demo |
 | NLP preprocessing (O1) | Done (Checkpoint 7) — `POST /api/v1/preprocess` |
-| NLP / LLM features | Later checkpoints |
+| spaCy tokenization | Done (Checkpoint 8) — `POST /api/v1/tokenize` |
+| LLM (Gemini) | Not started (Checkpoint 9) |
 
 ## How to run (backend — Checkpoint 3)
 
@@ -56,6 +57,8 @@ uvicorn app.main:app --reload --port 8000
 Then open http://localhost:8000/docs
 
 **Config:** copy `backend/.env.example` to `backend/.env` before running.
+
+**spaCy model (Checkpoint 8+):** `python -m spacy download en_core_web_sm`
 
 ## How to run (frontend — Checkpoint 5)
 
