@@ -42,7 +42,8 @@ articleIQ/
 | API contracts | Done (Checkpoint 6) — Pydantic + TypeScript + validate demo |
 | NLP preprocessing (O1) | Done (Checkpoint 7) — `POST /api/v1/preprocess` |
 | spaCy tokenization | Done (Checkpoint 8) — `POST /api/v1/tokenize` |
-| LLM (Gemini) | Not started (Checkpoint 9) |
+| Gemini integration | Done (Checkpoint 9) — `POST /api/v1/llm/demo` |
+| Summarization / sentiment / QA | Checkpoints 10+ |
 
 ## How to run (backend — Checkpoint 3)
 
@@ -59,6 +60,8 @@ Then open http://localhost:8000/docs
 **Config:** copy `backend/.env.example` to `backend/.env` before running.
 
 **spaCy model (Checkpoint 8+):** `python -m spacy download en_core_web_sm`
+
+**Gemini (Checkpoint 9+):** set `GEMINI_API_KEY` in `backend/.env` ([Google AI Studio](https://aistudio.google.com/apikey))
 
 ## How to run (frontend — Checkpoint 5)
 

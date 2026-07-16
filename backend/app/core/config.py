@@ -78,6 +78,24 @@ class Settings(BaseSettings):
         le=1000,
         description="Max tokens returned in API preview responses",
     )
+    gemini_temperature: float = Field(
+        default=0.3,
+        ge=0.0,
+        le=2.0,
+        description="Creativity: 0=deterministic, higher=more varied",
+    )
+    gemini_top_p: float = Field(
+        default=0.95,
+        ge=0.0,
+        le=1.0,
+        description="Nucleus sampling — limits token choice to top probability mass",
+    )
+    gemini_max_output_tokens: int = Field(
+        default=1024,
+        ge=64,
+        le=8192,
+        description="Hard cap on tokens Gemini may generate per call",
+    )
 
     @field_validator("cors_origins", mode="before")
     @classmethod

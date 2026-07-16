@@ -2,6 +2,7 @@ import { apiBaseUrl } from "@/lib/config";
 import type {
   ArticleTextRequest,
   HealthResponse,
+  LlmDemoResponse,
   PreprocessResponse,
   TokenizeResponse,
   ValidateArticleResponse,
@@ -92,4 +93,17 @@ export async function tokenizeArticle(
     body: JSON.stringify(body),
   });
   return handleResponse<TokenizeResponse>(response);
+}
+
+/** POST /api/v1/llm/demo — Gemini integration test (Checkpoint 9) */
+export async function llmDemo(message: string): Promise<LlmDemoResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/llm/demo`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ message }),
+  });
+  return handleResponse<LlmDemoResponse>(response);
 }

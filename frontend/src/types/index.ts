@@ -9,6 +9,7 @@ export type {
 export type { EntitiesRequest, EntitiesResponse, EntityItem } from "@/types/entities";
 export type { HealthResponse } from "@/types/health";
 export type { KeywordItem, KeywordsRequest, KeywordsResponse } from "@/types/keywords";
+export type { LlmDemoRequest, LlmDemoResponse } from "@/types/llm";
 export type { PreprocessRequest, PreprocessResponse } from "@/types/preprocess";
 export type { QARequest, QAResponse } from "@/types/qa";
 export type {

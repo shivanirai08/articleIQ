@@ -12,7 +12,8 @@ The **Python FastAPI backend** for ArticleIQ.
 | 4 Config / `.env` | Done |
 | 7 Preprocessing (O1) | Done |
 | 8 spaCy tokenization | Done |
-| 9 Gemini | Next |
+| 9 Gemini LLM | Done — requires `GEMINI_API_KEY` |
+| 10 Summarization | Next |
 
 ## Setup & run
 
@@ -36,6 +37,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 | GET `/health` | Liveness |
 | POST `/api/v1/preprocess` | Text cleaning (O1) |
 | POST `/api/v1/tokenize` | spaCy tokens + sentences |
+| POST `/api/v1/llm/demo` | Gemini integration test (needs API key) |
 | POST `/api/v1/validate-article` | Contract demo |
 
 Open http://localhost:8000/docs for interactive API docs.
