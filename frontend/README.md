@@ -2,43 +2,56 @@
 
 ## What is this?
 
-The **interactive web interface** for ArticleIQ (Objective O6). Users will paste
-an article, view summary/sentiment/keywords/entities, and ask questions.
+The **interactive web interface** for ArticleIQ (Objective O6).
 
-## Why a separate `frontend/` folder?
+## Checkpoint status
 
-UI concerns (layout, loading spinners, forms) are different from NLP/LLM
-concerns. Separating them matches real-world full-stack systems and keeps the
-Gemini API key off the client.
+| Checkpoint | Status |
+|------------|--------|
+| 5 Next.js foundation | Done — App Router shell + backend health check |
+| 6 API contracts | Next |
+| 16 Full UI integration | Later |
 
-## Current checkpoint status
+## Setup
 
-Checkpoint 2 created the **planned folder skeleton only**.
-Next.js will be initialized properly in Checkpoint 5 (`create-next-app` / equivalent).
-
-## Planned layout
-
-```text
-frontend/
-├── src/
-│   ├── app/           # pages (App Router)
-│   ├── components/    # reusable UI pieces
-│   ├── lib/           # API client helpers
-│   ├── types/         # TypeScript contracts mirroring backend schemas
-│   └── styles/        # global styles
-├── public/            # static assets
-└── package.json       # created when Next.js is initialized (CP5)
+```bash
+cd frontend
+cp .env.example .env.local
+npm install
+npm run dev
 ```
 
-## How it will talk to the backend
+Open http://localhost:3000
 
-```text
-Browser form
-  → frontend/src/lib (fetch helpers)
-    → HTTP JSON
-      → backend /api/v1/*
+**Also run the backend** (separate terminal):
+
+```bash
+cd backend
+source .venv/bin/activate
+uvicorn app.main:app --reload --port 8000
 ```
 
-## How to run (later)
+The home page calls `GET /health` to verify CORS and connectivity.
 
-Instructions will be added in Checkpoint 5 after Next.js scaffolding.
+## Environment variables
+
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_API_BASE_URL` | FastAPI origin (browser-safe) |
+
+Only `NEXT_PUBLIC_*` vars are exposed to client JavaScript. **Never** put `GEMINI_API_KEY` here.
+
+## Folder map
+
+```text
+src/app/          pages (App Router)
+src/components/   reusable UI (BackendStatus, later analysis panels)
+src/lib/          API helpers + config
+src/types/        TypeScript contracts mirroring backend
+```
+
+## Scripts
+
+- `npm run dev` — development server (:3000)
+- `npm run build` — production build
+- `npm run start` — serve production build
