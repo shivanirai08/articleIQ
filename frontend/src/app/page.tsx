@@ -1,3 +1,4 @@
+import { AnalyzeArticleForm } from "@/components/AnalyzeArticleForm";
 import { BackendStatus } from "@/components/BackendStatus";
 import { EntitiesArticleForm } from "@/components/EntitiesArticleForm";
 import { KeywordsArticleForm } from "@/components/KeywordsArticleForm";
@@ -15,7 +16,7 @@ export default function HomePage() {
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
       <header className="space-y-3">
         <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent)]">
-          ArticleIQ · Checkpoint 14
+          ArticleIQ · Checkpoint 15
         </p>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Intelligent News Summarization &amp; Sentiment Analysis
@@ -24,11 +25,13 @@ export default function HomePage() {
           Interactive web interface for NLP preprocessing, summaries, sentiment,
           keywords, entities, and article Q&amp;A — now including summarization (O2),
           sentiment analysis (O3), keyword extraction (O4), named entity recognition,
-          and grounded Q&amp;A (O5).
+          and grounded Q&amp;A (O5), plus one-call full analysis orchestration.
         </p>
       </header>
 
       <BackendStatus />
+
+      <AnalyzeArticleForm />
 
       <SummarizeArticleForm />
 
@@ -66,8 +69,8 @@ export default function HomePage() {
       <section className="rounded-xl border border-dashed border-[var(--border)] p-5 text-sm text-[var(--muted)]">
         <h2 className="font-semibold text-[var(--foreground)]">Coming next</h2>
         <ul className="mt-2 list-inside list-disc space-y-1">
-          <li>Checkpoint 15 — Orchestrated analyze endpoint</li>
-          <li>Checkpoint 16 — full article analysis UI</li>
+          <li>Checkpoint 16 — unified article analysis UI</li>
+          <li>Checkpoint 17 — testing and hardening</li>
         </ul>
       </section>
     </main>

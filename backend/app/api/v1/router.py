@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from app.api.v1 import entities, keywords, llm, preprocess, qa, sentiment, summarize, tokenize, validate
+from app.api.v1 import analyze, entities, keywords, llm, preprocess, qa, sentiment, summarize, tokenize, validate
 
 api_router = APIRouter()
 
@@ -15,6 +15,7 @@ api_router.include_router(llm.router)
 api_router.include_router(summarize.router)
 api_router.include_router(sentiment.router)
 api_router.include_router(qa.router)
+api_router.include_router(analyze.router)
 
 
 @api_router.get("/ping", tags=["system"])

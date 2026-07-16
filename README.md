@@ -48,7 +48,8 @@ articleIQ/
 | Keywords (O4) | Done — `POST /api/v1/keywords` |
 | Entities / NER (O4) | Done — `POST /api/v1/entities` |
 | Q&A (O5) | Done — `POST /api/v1/qa` |
-| Full analyze UI | Checkpoints 15+ |
+| Full analyze | Done — `POST /api/v1/analyze` |
+| Unified UI / deploy | Checkpoints 16+ |
 
 ## How to run (backend — Checkpoint 3)
 

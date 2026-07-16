@@ -1,6 +1,6 @@
 """Pydantic request/response schemas — single import surface for routes and services."""
 
-from app.schemas.analyze import AnalyzeRequest, AnalyzeResponse
+from app.schemas.analyze import AnalyzeRequest, AnalyzeResponse, AnalyzeSectionError
 from app.schemas.common import ArticleTextRequest, ErrorResponse, ValidateArticleResponse
 from app.schemas.entities import EntitiesRequest, EntitiesResponse, EntityItem
 from app.schemas.keywords import KeywordItem, KeywordsRequest, KeywordsResponse
@@ -15,6 +15,7 @@ from app.schemas.tokenize import TokenizeRequest, TokenizeResponse
 __all__ = [
     "AnalyzeRequest",
     "AnalyzeResponse",
+    "AnalyzeSectionError",
     "ArticleTextRequest",
     "EntitiesRequest",
     "EntitiesResponse",

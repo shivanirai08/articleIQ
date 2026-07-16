@@ -6,11 +6,22 @@ import type { KeywordsResponse } from "@/types/keywords";
 import type { SentimentResponse } from "@/types/sentiment";
 import type { SummarizeResponse } from "@/types/summarize";
 
-export type AnalyzeRequest = ArticleTextRequest;
+export type AnalyzeSection = "summary" | "sentiment" | "keywords" | "entities";
+
+export type AnalyzeRequest = ArticleTextRequest & {
+  keyword_limit?: number;
+};
+
+export type AnalyzeSectionError = {
+  section: AnalyzeSection;
+  detail: string;
+};
 
 export type AnalyzeResponse = {
-  summary: SummarizeResponse;
-  sentiment: SentimentResponse;
-  keywords: KeywordsResponse;
-  entities: EntitiesResponse;
+  summary: SummarizeResponse | null;
+  sentiment: SentimentResponse | null;
+  keywords: KeywordsResponse | null;
+  entities: EntitiesResponse | null;
+  errors: AnalyzeSectionError[];
+  total_latency_ms: number;
 };

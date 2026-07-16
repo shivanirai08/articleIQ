@@ -11,6 +11,7 @@ import type {
   KeywordsResponse,
   EntitiesResponse,
   QAResponse,
+  AnalyzeResponse,
 } from "@/types";
 
 export class ApiError extends Error {
@@ -186,4 +187,19 @@ export async function askArticleQuestion(
     body: JSON.stringify(body),
   });
   return handleResponse<QAResponse>(response);
+}
+
+/** POST /api/v1/analyze — full orchestrated analysis (Checkpoint 15) */
+export async function analyzeArticle(
+  body: ArticleTextRequest & { keyword_limit?: number },
+): Promise<AnalyzeResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/analyze`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<AnalyzeResponse>(response);
 }
