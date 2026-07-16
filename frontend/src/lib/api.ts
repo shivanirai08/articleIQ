@@ -8,6 +8,7 @@ import type {
   ValidateArticleResponse,
   SummarizeResponse,
   SentimentResponse,
+  KeywordsResponse,
 } from "@/types";
 
 export class ApiError extends Error {
@@ -138,4 +139,19 @@ export async function analyzeSentiment(
     body: JSON.stringify(body),
   });
   return handleResponse<SentimentResponse>(response);
+}
+
+/** POST /api/v1/keywords — spaCy keyword extraction (Checkpoint 12, O4) */
+export async function extractKeywords(
+  body: ArticleTextRequest & { limit?: number },
+): Promise<KeywordsResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/keywords`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<KeywordsResponse>(response);
 }

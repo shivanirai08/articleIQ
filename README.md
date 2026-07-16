@@ -45,7 +45,8 @@ articleIQ/
 | LLM (Grok/Groq) | Done — `POST /api/v1/llm/demo` |
 | Summarization (O2) | Done — `POST /api/v1/summarize` |
 | Sentiment (O3) | Done — `POST /api/v1/sentiment` |
-| Keywords / entities / QA | Checkpoints 12+ |
+| Keywords (O4) | Done — `POST /api/v1/keywords` |
+| Entities / QA | Checkpoints 13+ |
 
 ## How to run (backend — Checkpoint 3)
 

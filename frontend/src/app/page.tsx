@@ -1,4 +1,5 @@
 import { BackendStatus } from "@/components/BackendStatus";
+import { KeywordsArticleForm } from "@/components/KeywordsArticleForm";
 import { LlmDemoForm } from "@/components/LlmDemoForm";
 import { PreprocessArticleForm } from "@/components/PreprocessArticleForm";
 import { SentimentArticleForm } from "@/components/SentimentArticleForm";
@@ -12,15 +13,15 @@ export default function HomePage() {
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
       <header className="space-y-3">
         <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent)]">
-          ArticleIQ · Checkpoint 11
+          ArticleIQ · Checkpoint 12
         </p>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Intelligent News Summarization &amp; Sentiment Analysis
         </h1>
         <p className="text-base leading-relaxed text-[var(--muted)]">
           Interactive web interface for NLP preprocessing, summaries, sentiment,
-          keywords, entities, and article Q&amp;A — now including summarization (O2)
-          and sentiment analysis (O3).
+          keywords, entities, and article Q&amp;A — now including summarization (O2),
+          sentiment analysis (O3), and keyword extraction (O4).
         </p>
       </header>
 
@@ -29,6 +30,8 @@ export default function HomePage() {
       <SummarizeArticleForm />
 
       <SentimentArticleForm />
+
+      <KeywordsArticleForm />
 
       <LlmDemoForm />
 
@@ -56,7 +59,7 @@ export default function HomePage() {
       <section className="rounded-xl border border-dashed border-[var(--border)] p-5 text-sm text-[var(--muted)]">
         <h2 className="font-semibold text-[var(--foreground)]">Coming next</h2>
         <ul className="mt-2 list-inside list-disc space-y-1">
-          <li>Checkpoint 12 — Keyword extraction API</li>
+          <li>Checkpoint 13 — Named entity recognition API</li>
           <li>Checkpoint 16 — full article analysis UI</li>
         </ul>
       </section>

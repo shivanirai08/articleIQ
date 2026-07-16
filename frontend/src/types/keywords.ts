@@ -2,7 +2,9 @@
 
 import type { ArticleTextRequest } from "@/types/common";
 
-export type KeywordsRequest = ArticleTextRequest;
+export type KeywordsRequest = ArticleTextRequest & {
+  limit?: number;
+};
 
 export type KeywordItem = {
   keyword: string;
@@ -11,4 +13,9 @@ export type KeywordItem = {
 
 export type KeywordsResponse = {
   keywords: KeywordItem[];
+  spacy_model: string;
+  original_length: number;
+  cleaned_length: number;
+  candidate_count: number;
+  limit: number;
 };
