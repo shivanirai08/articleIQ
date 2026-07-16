@@ -14,63 +14,56 @@ Large volumes of online news make it difficult for users to quickly understand i
 
 ## Objectives
 
-1. Perform NLP preprocessing
-2. Generate concise summaries
-3. Detect sentiment
-4. Extract important keywords (and named entities)
-5. Generate question-answer responses using prompt engineering
-6. Develop an interactive web interface
+| # | Objective | Implementation |
+|---|-----------|----------------|
+| O1 | NLP preprocessing | `POST /api/v1/preprocess` |
+| O2 | Concise summaries | `POST /api/v1/summarize` |
+| O3 | Sentiment detection | `POST /api/v1/sentiment` |
+| O4 | Keywords & entities | `POST /api/v1/keywords`, `/entities` |
+| O5 | Q&A (prompt engineering) | `POST /api/v1/qa` |
+| O6 | Interactive web UI | Next.js workspace at `/` |
+
+## Architecture
+
+```text
+Browser (Next.js :3000)
+        │  REST / JSON
+        ▼
+FastAPI (:8000)
+  ├── Classical NLP — spaCy (keywords, NER, tokenize)
+  └── LLM — Groq/Grok (summary, sentiment, Q&A)
+```
+
+**Orchestrator:** `POST /api/v1/analyze` runs all analysis sections in one call.
 
 ## Repository layout
 
 ```text
 articleIQ/
-├── backend/     # FastAPI + NLP + LLM services (Python)
-├── frontend/    # Next.js interactive web UI (TypeScript)
-└── README.md    # This file
+├── backend/          # FastAPI + NLP + LLM
+├── frontend/       # Next.js UI
+├── scripts/        # Demo script
+├── docker-compose.yml
+├── render.yaml     # Backend deploy blueprint
+└── README.md
 ```
 
-## Status
+## Quick start (local)
 
-| Area | Status |
-|------|--------|
-| Planning & architecture | Done (Checkpoint 1) |
-| Folder structure | Done (Checkpoint 2) |
-| FastAPI app | Done (Checkpoint 3) — `/health`, `/api/v1/ping`, `/docs` |
-| Typed config / `.env` | Done (Checkpoint 4) — pydantic-settings |
-| Next.js app | Done (Checkpoint 5) — shell + backend health check |
-| API contracts | Done (Checkpoint 6) — Pydantic + TypeScript + validate demo |
-| NLP preprocessing (O1) | Done (Checkpoint 7) — `POST /api/v1/preprocess` |
-| spaCy tokenization | Done (Checkpoint 8) — `POST /api/v1/tokenize` |
-| LLM (Grok/Groq) | Done — `POST /api/v1/llm/demo` |
-| Summarization (O2) | Done — `POST /api/v1/summarize` |
-| Sentiment (O3) | Done — `POST /api/v1/sentiment` |
-| Keywords (O4) | Done — `POST /api/v1/keywords` |
-| Entities / NER (O4) | Done — `POST /api/v1/entities` |
-| Q&A (O5) | Done — `POST /api/v1/qa` |
-| Full analyze | Done — `POST /api/v1/analyze` |
-| Interactive UI (O6) | Done — unified analysis workspace |
-| Testing / deploy | Checkpoints 17–18 |
-
-## How to run (backend — Checkpoint 3)
+### Backend
 
 ```bash
 cd backend
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+python -m spacy download en_core_web_sm
+cp .env.example .env   # add GROK_API_KEY
 uvicorn app.main:app --reload --port 8000
 ```
 
-Then open http://localhost:8000/docs
+API docs: http://localhost:8000/docs
 
-**Config:** copy `backend/.env.example` to `backend/.env` before running.
-
-**spaCy model (Checkpoint 8+):** `python -m spacy download en_core_web_sm`
-
-**LLM (Checkpoint 9+):** set `GROK_API_KEY` in `backend/.env` ([Groq](https://console.groq.com/keys) or [xAI](https://console.x.ai/))
-
-## How to run (frontend — Checkpoint 5)
+### Frontend
 
 ```bash
 cd frontend
@@ -79,12 +72,99 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000 (run backend on :8000 in a second terminal).
+UI: http://localhost:3000
+
+### Demo script (viva)
+
+With backend running:
+
+```bash
+chmod +x scripts/demo.sh
+./scripts/demo.sh
+```
+
+## Deployment
+
+Recommended stack: **Render** (backend) + **Vercel** (frontend).
+
+### 1. Backend → Render
+
+1. Push repo to GitHub
+2. Create a **Web Service** on [Render](https://render.com) → connect repo
+3. Use `render.yaml` or set:
+   - **Root directory:** `backend`
+   - **Docker** or build: `pip install -r requirements.txt && python -m spacy download en_core_web_sm`
+   - **Start:** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+4. Environment variables:
+
+| Variable | Value |
+|----------|-------|
+| `GROK_API_KEY` | Your Groq key (`gsk_…`) |
+| `APP_ENV` | `production` |
+| `CORS_ORIGINS` | `https://your-app.vercel.app` |
+
+Health check path: `/health`
+
+### 2. Frontend → Vercel
+
+1. Import repo on [Vercel](https://vercel.com)
+2. Set **Root Directory** to `frontend`
+3. Environment variable:
+
+| Variable | Value |
+|----------|-------|
+| `NEXT_PUBLIC_API_BASE_URL` | `https://your-api.onrender.com` |
+
+4. Deploy — Vercel builds Next.js automatically
+
+### 3. Docker (optional)
+
+```bash
+# Backend only
+docker build -t articleiq-api ./backend
+docker run -p 8000:8000 --env-file backend/.env articleiq-api
+
+# Full stack
+docker compose up --build
+```
+
+## API endpoints
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/health` | Liveness + config flags |
+| POST | `/api/v1/analyze` | Full analysis (O2–O4) |
+| POST | `/api/v1/summarize` | Abstractive summary |
+| POST | `/api/v1/sentiment` | Sentiment + rationale |
+| POST | `/api/v1/keywords` | Keyword extraction |
+| POST | `/api/v1/entities` | Named entity recognition |
+| POST | `/api/v1/qa` | Grounded Q&A |
+| POST | `/api/v1/preprocess` | Text cleaning |
+| POST | `/api/v1/tokenize` | spaCy tokenization |
+
+## Testing
+
+```bash
+cd backend && pytest tests/ -q
+cd frontend && npm run build
+```
+
+CI runs both on push (`.github/workflows/ci.yml`).
+
+## Viva talking points (60 seconds)
+
+1. **Hybrid NLP + LLM** — spaCy for explainable structure; Groq for generation
+2. **Prompt engineering** — role, constraints, delimiters, JSON schema, refusal for Q&A
+3. **Clean architecture** — routes → services → adapters; orchestrator composes services
+4. **Partial failure** — analyze returns NLP results even if LLM is down
+5. **Security** — API keys server-side only; CORS restricts browser origins
 
 ## Academic note
 
-This project intentionally separates:
+- **Classical NLP** — preprocessing, keywords, NER (explainable)
+- **LLMs** — summary, sentiment, Q&A (prompt engineering)
+- **Web UI** — single workspace demonstrating the full pipeline
 
-- **Classical NLP** (preprocessing, keywords, NER) — explainable fundamentals
-- **Large Language Models** (summary, sentiment narrative, Q&A) — generative intelligence via prompt engineering
-- **Web UI** — interactive demonstration of the full pipeline
+## Status
+
+**Project complete** — all 18 checkpoints implemented (local + deploy-ready).

@@ -1,0 +1,20 @@
+# Render.com — deploy backend from repo root
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: articleiq-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: GROK_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: SPACY_MODEL
+        value: en_core_web_sm
