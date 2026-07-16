@@ -1,4 +1,5 @@
 import { BackendStatus } from "@/components/BackendStatus";
+import { ValidateArticleForm } from "@/components/ValidateArticleForm";
 import { apiBaseUrl } from "@/lib/config";
 
 export default function HomePage() {
@@ -6,7 +7,7 @@ export default function HomePage() {
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
       <header className="space-y-3">
         <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent)]">
-          ArticleIQ · Checkpoint 5
+          ArticleIQ · Checkpoint 6
         </p>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Intelligent News Summarization &amp; Sentiment Analysis
@@ -14,11 +15,13 @@ export default function HomePage() {
         <p className="text-base leading-relaxed text-[var(--muted)]">
           Interactive web interface for NLP preprocessing, summaries, sentiment,
           keywords, entities, and article Q&amp;A. Feature panels arrive in later
-          checkpoints — this page proves the frontend can talk to FastAPI.
+          checkpoints — this page proves shared API contracts and backend connectivity.
         </p>
       </header>
 
       <BackendStatus />
+
+      <ValidateArticleForm />
 
       <section className="rounded-xl border border-[var(--border)] p-5 text-sm">
         <h2 className="font-semibold">Configuration</h2>
@@ -38,8 +41,8 @@ export default function HomePage() {
       <section className="rounded-xl border border-dashed border-[var(--border)] p-5 text-sm text-[var(--muted)]">
         <h2 className="font-semibold text-[var(--foreground)]">Coming next</h2>
         <ul className="mt-2 list-inside list-disc space-y-1">
-          <li>Checkpoint 6 — shared API contracts (Pydantic + TypeScript)</li>
-          <li>Checkpoint 7+ — NLP preprocessing pipeline</li>
+          <li>Checkpoint 7 — NLP text preprocessing pipeline</li>
+          <li>Checkpoint 9+ — Gemini integration</li>
           <li>Checkpoint 16 — full article analysis UI</li>
         </ul>
       </section>

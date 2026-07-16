@@ -39,6 +39,7 @@ articleIQ/
 | FastAPI app | Done (Checkpoint 3) — `/health`, `/api/v1/ping`, `/docs` |
 | Typed config / `.env` | Done (Checkpoint 4) — pydantic-settings |
 | Next.js app | Done (Checkpoint 5) — shell + backend health check |
+| API contracts | Done (Checkpoint 6) — Pydantic + TypeScript + validate demo |
 | NLP / LLM features | Later checkpoints |
 
 ## How to run (backend — Checkpoint 3)

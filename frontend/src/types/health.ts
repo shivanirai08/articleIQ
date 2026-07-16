@@ -1,8 +1,8 @@
-/** TypeScript mirror of backend GET /health response (Checkpoint 3–4). */
+/** Mirror of backend/app/schemas/system.py */
 
 export type HealthResponse = {
-  status: string;
+  status: "ok";
   service: string;
-  environment: string;
+  environment: "development" | "staging" | "production";
   gemini_configured: boolean;
 };

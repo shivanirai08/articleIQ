@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_router
 from app.core.config import get_settings
+from app.schemas import HealthResponse
 
 
 def create_app() -> FastAPI:
@@ -45,15 +46,15 @@ def create_app() -> FastAPI:
             "api_prefix": settings.api_prefix,
         }
 
-    @application.get("/health", tags=["system"])
-    def health() -> dict[str, str | bool]:
+    @application.get("/health", response_model=HealthResponse, tags=["system"])
+    def health() -> HealthResponse:
         """Liveness + safe config flags (never exposes secrets)."""
-        return {
-            "status": "ok",
-            "service": settings.app_name,
-            "environment": settings.app_env,
-            "gemini_configured": settings.gemini_configured,
-        }
+        return HealthResponse(
+            status="ok",
+            service=settings.app_name,
+            environment=settings.app_env,
+            gemini_configured=settings.gemini_configured,
+        )
 
     application.include_router(api_router, prefix=settings.api_prefix)
 
