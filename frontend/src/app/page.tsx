@@ -18,7 +18,7 @@ export default function HomePage() {
         <p className="text-base leading-relaxed text-[var(--muted)]">
           Interactive web interface for NLP preprocessing, summaries, sentiment,
           keywords, entities, and article Q&amp;A. Feature panels arrive in later
-          checkpoints — preprocessing, spaCy, and Gemini LLM integration.
+          checkpoints — preprocessing, spaCy, and Grok/Groq LLM.
         </p>
       </header>
 

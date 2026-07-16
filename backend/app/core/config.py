@@ -1,17 +1,4 @@
-"""Application settings for ArticleIQ backend.
-
-Checkpoint 4: typed configuration loaded from environment variables and `.env`.
-
-Why this file exists:
-  One authoritative place for configuration. Prevents magic strings scattered
-  across routes, services, and adapters.
-
-Who imports this:
-  app.main, and later services/adapters (Gemini client, etc.).
-
-What happens if removed:
-  Every module would read os.getenv independently → drift and secret leaks.
-"""
+"""Application settings for ArticleIQ backend."""
 
 from __future__ import annotations
 
@@ -21,20 +8,14 @@ from typing import Literal
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+XAI_BASE_URL = "https://api.x.ai/v1"
+GROQ_DEFAULT_MODEL = "llama-3.3-70b-versatile"
+XAI_DEFAULT_MODEL = "grok-3-mini"
+
 
 class Settings(BaseSettings):
-    """Typed application settings.
-
-    Values are loaded in this order (later wins):
-      1. Defaults defined on this class
-      2. Variables from a `.env` file in the working directory
-      3. Real environment variables (highest priority)
-
-    Real-world analogy:
-      `.env` = your personal notebook of settings for this machine.
-      Environment variables = instructions pinned on the wall by ops/deploy.
-      The wall wins if both disagree.
-    """
+    """Typed application settings."""
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -43,64 +24,35 @@ class Settings(BaseSettings):
         case_sensitive=False,
     )
 
-    # --- Application identity ---
-    app_name: str = Field(default="ArticleIQ", description="Service display name")
-    app_env: Literal["development", "staging", "production"] = Field(
-        default="development",
-        description="Runtime environment label (not a secret)",
-    )
-    api_prefix: str = Field(default="/api/v1", description="Versioned API mount path")
+    app_name: str = Field(default="ArticleIQ")
+    app_env: Literal["development", "staging", "production"] = Field(default="development")
+    api_prefix: str = Field(default="/api/v1")
 
-    # --- CORS (Objective O6: browser UI on another origin) ---
-    cors_origins: list[str] = Field(
-        default_factory=lambda: ["http://localhost:3000"],
-        description="Allowed browser origins (comma-separated in .env)",
-    )
+    cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
 
-    # --- LLM (Checkpoint 9+) ---
-    gemini_api_key: str | None = Field(
+    # --- LLM (Grok / Groq via GROK_API_KEY) ---
+    grok_api_key: str | None = Field(
         default=None,
-        description="Google Gemini API key — server-side only, never in frontend",
+        description="Groq (gsk_) or xAI Grok (xai-) API key — server-side only",
     )
-    gemini_model: str = Field(
-        default="gemini-2.0-flash",
-        description="Default Gemini model id for summary/sentiment/QA",
+    grok_model: str | None = Field(
+        default=None,
+        description="Override model id; auto-selected if empty based on key type",
     )
+    llm_base_url: str | None = Field(
+        default=None,
+        description="Override API base URL (auto-detect Groq/xAI if empty)",
+    )
+    llm_temperature: float = Field(default=0.3, ge=0.0, le=2.0)
+    llm_top_p: float = Field(default=0.95, ge=0.0, le=1.0)
+    llm_max_output_tokens: int = Field(default=1024, ge=64, le=8192)
 
-    # --- Classical NLP (Checkpoint 8+) ---
-    spacy_model: str = Field(
-        default="en_core_web_sm",
-        description="spaCy pipeline model name (download separately)",
-    )
-    spacy_token_preview_limit: int = Field(
-        default=150,
-        ge=10,
-        le=1000,
-        description="Max tokens returned in API preview responses",
-    )
-    gemini_temperature: float = Field(
-        default=0.3,
-        ge=0.0,
-        le=2.0,
-        description="Creativity: 0=deterministic, higher=more varied",
-    )
-    gemini_top_p: float = Field(
-        default=0.95,
-        ge=0.0,
-        le=1.0,
-        description="Nucleus sampling — limits token choice to top probability mass",
-    )
-    gemini_max_output_tokens: int = Field(
-        default=1024,
-        ge=64,
-        le=8192,
-        description="Hard cap on tokens Gemini may generate per call",
-    )
+    spacy_model: str = Field(default="en_core_web_sm")
+    spacy_token_preview_limit: int = Field(default=150, ge=10, le=1000)
 
     @field_validator("cors_origins", mode="before")
     @classmethod
     def parse_cors_origins(cls, value: object) -> list[str]:
-        """Accept either a list or a comma-separated string from `.env`."""
         if isinstance(value, str):
             return [item.strip() for item in value.split(",") if item.strip()]
         if isinstance(value, list):
@@ -108,33 +60,42 @@ class Settings(BaseSettings):
         return ["http://localhost:3000"]
 
     @property
-    def is_development(self) -> bool:
-        return self.app_env == "development"
+    def llm_configured(self) -> bool:
+        return bool(self.grok_api_key and self.grok_api_key.strip())
 
     @property
-    def is_production(self) -> bool:
-        return self.app_env == "production"
+    def llm_provider(self) -> str:
+        """Detect provider from key prefix."""
+        key = (self.grok_api_key or "").strip()
+        if key.startswith("gsk_"):
+            return "groq"
+        if key.startswith("xai-"):
+            return "xai"
+        return "custom"
 
     @property
-    def gemini_configured(self) -> bool:
-        """True when a non-empty Gemini key is present (used in health checks)."""
-        return bool(self.gemini_api_key and self.gemini_api_key.strip())
+    def resolved_llm_base_url(self) -> str:
+        if self.llm_base_url:
+            return self.llm_base_url.rstrip("/")
+        if self.llm_provider == "groq":
+            return GROQ_BASE_URL
+        if self.llm_provider == "xai":
+            return XAI_BASE_URL
+        return GROQ_BASE_URL
+
+    @property
+    def resolved_llm_model(self) -> str:
+        if self.grok_model and self.grok_model.strip():
+            return self.grok_model.strip()
+        if self.llm_provider == "xai":
+            return XAI_DEFAULT_MODEL
+        return GROQ_DEFAULT_MODEL
 
 
 @lru_cache
 def get_settings() -> Settings:
-    """Return a cached Settings instance (singleton per process).
-
-    Why cache:
-      Settings are read once at startup. Re-parsing `.env` on every request
-      would be wasteful and could hide configuration bugs.
-
-    Time complexity: O(1) after first call.
-    Space complexity: O(1) — one Settings object.
-    """
     return Settings()
 
 
 def clear_settings_cache() -> None:
-    """Clear cached settings — useful in tests when env vars change."""
     get_settings.cache_clear()

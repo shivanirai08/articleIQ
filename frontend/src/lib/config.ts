@@ -1,7 +1,7 @@
 /** Frontend-safe configuration (Objective O6).
 
 Only variables prefixed with NEXT_PUBLIC_ are exposed to browser JavaScript.
-Never put GEMINI_API_KEY here — that stays on the FastAPI backend only.
+Never put GROK_API_KEY here — that stays on the FastAPI backend only.
 */
 
 export const apiBaseUrl =

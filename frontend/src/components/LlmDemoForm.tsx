@@ -9,7 +9,7 @@ const DEFAULT_MESSAGE = "What is sentiment analysis in news articles?";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-/** Demonstrates Gemini LLM integration (Checkpoint 9). Requires GEMINI_API_KEY on backend. */
+/** Demonstrates Grok/Groq LLM integration. Requires GROK_API_KEY on backend. */
 export function LlmDemoForm() {
   const [message, setMessage] = useState(DEFAULT_MESSAGE);
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -31,7 +31,7 @@ export function LlmDemoForm() {
       setErrorMessage(
         error instanceof ApiError
           ? error.message
-          : "LLM request failed. Is GEMINI_API_KEY set on the backend?",
+          : "LLM request failed. Is GROK_API_KEY set on the backend?",
       );
     }
   }
@@ -39,11 +39,12 @@ export function LlmDemoForm() {
   return (
     <section className="rounded-xl border border-[var(--border)] p-5">
       <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">
-        Checkpoint 9 — Gemini LLM demo
+        Grok / Groq LLM demo
       </h2>
       <p className="mt-2 text-sm text-[var(--muted)]">
-        POST <code className="font-mono text-xs">/api/v1/llm/demo</code> sends a
-        system + user prompt to Google Gemini. Key stays on the backend only.
+        POST <code className="font-mono text-xs">/api/v1/llm/demo</code> uses your{" "}
+        <code className="font-mono text-xs">GROK_API_KEY</code> (Groq or xAI). Key stays
+        on the backend only.
       </p>
 
       <form onSubmit={onSubmit} className="mt-4 space-y-3">
@@ -52,14 +53,14 @@ export function LlmDemoForm() {
           className="w-full rounded-lg border border-[var(--border)] bg-transparent p-3 text-sm"
           value={message}
           onChange={(event) => setMessage(event.target.value)}
-          aria-label="Message for Gemini"
+          aria-label="Message for LLM"
         />
         <button
           type="submit"
           disabled={status === "loading"}
           className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
         >
-          {status === "loading" ? "Calling Gemini…" : "Ask Gemini"}
+          {status === "loading" ? "Calling LLM…" : "Ask LLM"}
         </button>
       </form>
 

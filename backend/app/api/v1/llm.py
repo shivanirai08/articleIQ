@@ -1,8 +1,8 @@
-"""POST /api/v1/llm/demo — Gemini integration test (Checkpoint 9)."""
+"""POST /api/v1/llm/demo — Grok/Groq LLM integration test."""
 
 from fastapi import APIRouter, HTTPException, status
 
-from app.adapters.gemini_client import GeminiNotConfiguredError
+from app.adapters.grok_client import GrokNotConfiguredError
 from app.core.config import get_settings
 from app.schemas.llm import LlmDemoRequest, LlmDemoResponse
 from app.services.llm import run_integration_demo
@@ -13,23 +13,15 @@ router = APIRouter(prefix="/llm", tags=["llm"])
 @router.post(
     "/demo",
     response_model=LlmDemoResponse,
-    summary="Test Gemini LLM integration",
+    summary="Test Grok/Groq LLM integration",
 )
 def llm_demo(body: LlmDemoRequest) -> LlmDemoResponse:
-    """Send a short message to Gemini and return the reply + metadata.
-
-    Why POST: message body in JSON (not URL).
-
-    Status codes:
-      200 — Gemini replied successfully
-      503 — GEMINI_API_KEY not configured on server
-      502 — Gemini API error or empty response
-    """
+    """Send a short message to the LLM and return the reply + metadata."""
     settings = get_settings()
 
     try:
         result = run_integration_demo(body.message)
-    except GeminiNotConfiguredError as exc:
+    except GrokNotConfiguredError as exc:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail=str(exc),
@@ -37,7 +29,7 @@ def llm_demo(body: LlmDemoRequest) -> LlmDemoResponse:
     except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
-            detail=f"Gemini request failed: {exc}",
+            detail=f"LLM request failed: {exc}",
         ) from exc
 
     return LlmDemoResponse(
@@ -47,6 +39,6 @@ def llm_demo(body: LlmDemoRequest) -> LlmDemoResponse:
         prompt_tokens=result.prompt_tokens,
         output_tokens=result.output_tokens,
         total_tokens=result.total_tokens,
-        temperature=settings.gemini_temperature,
-        max_output_tokens=settings.gemini_max_output_tokens,
+        temperature=settings.llm_temperature,
+        max_output_tokens=settings.llm_max_output_tokens,
     )

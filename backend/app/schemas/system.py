@@ -9,6 +9,6 @@ class HealthResponse(BaseModel):
     status: Literal["ok"] = "ok"
     service: str
     environment: Literal["development", "staging", "production"]
-    gemini_configured: bool = Field(
-        description="True when GEMINI_API_KEY is set (never exposes the key)",
+    llm_configured: bool = Field(
+        description="True when GROK_API_KEY is set (never exposes the key)",
     )

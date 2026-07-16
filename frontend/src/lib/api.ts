@@ -95,7 +95,7 @@ export async function tokenizeArticle(
   return handleResponse<TokenizeResponse>(response);
 }
 
-/** POST /api/v1/llm/demo — Gemini integration test (Checkpoint 9) */
+/** POST /api/v1/llm/demo — Claude integration test (Checkpoint 9) */
 export async function llmDemo(message: string): Promise<LlmDemoResponse> {
   const response = await fetch(`${apiBaseUrl}/api/v1/llm/demo`, {
     method: "POST",

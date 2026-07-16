@@ -2,7 +2,7 @@
 
 Prompt engineering technique: System Instruction
   - Sets persistent role, tone, and constraints for the model.
-  - Sent separately from the user's message in Gemini's API.
+  - Sent as the `system` parameter in Anthropic's Messages API.
   - Think of it as the employee handbook; user messages are customer requests.
 """
 

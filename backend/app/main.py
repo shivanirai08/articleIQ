@@ -53,7 +53,7 @@ def create_app() -> FastAPI:
             status="ok",
             service=settings.app_name,
             environment=settings.app_env,
-            gemini_configured=settings.gemini_configured,
+            llm_configured=settings.llm_configured,
         )
 
     application.include_router(api_router, prefix=settings.api_prefix)

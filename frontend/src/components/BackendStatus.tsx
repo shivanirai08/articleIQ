@@ -81,9 +81,9 @@ export function BackendStatus() {
             </dd>
           </div>
           <div>
-            <dt className="text-[var(--muted)]">Gemini configured</dt>
+            <dt className="text-[var(--muted)]">LLM configured</dt>
             <dd className="font-medium">
-              {health.gemini_configured ? "Yes" : "No (Checkpoint 9)"}
+              {health.llm_configured ? "Yes (Grok/Groq)" : "No — set GROK_API_KEY"}
             </dd>
           </div>
         </dl>
