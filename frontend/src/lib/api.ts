@@ -2,6 +2,7 @@ import { apiBaseUrl } from "@/lib/config";
 import type {
   ArticleTextRequest,
   HealthResponse,
+  PreprocessResponse,
   ValidateArticleResponse,
 } from "@/types";
 
@@ -60,4 +61,19 @@ export async function validateArticle(
     body: JSON.stringify(body),
   });
   return handleResponse<ValidateArticleResponse>(response);
+}
+
+/** POST /api/v1/preprocess — NLP cleaning pipeline (Checkpoint 7, O1) */
+export async function preprocessArticle(
+  body: ArticleTextRequest,
+): Promise<PreprocessResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/v1/preprocess`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<PreprocessResponse>(response);
 }

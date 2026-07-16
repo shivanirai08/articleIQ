@@ -4,6 +4,7 @@ from app.schemas.analyze import AnalyzeRequest, AnalyzeResponse
 from app.schemas.common import ArticleTextRequest, ErrorResponse, ValidateArticleResponse
 from app.schemas.entities import EntitiesRequest, EntitiesResponse, EntityItem
 from app.schemas.keywords import KeywordItem, KeywordsRequest, KeywordsResponse
+from app.schemas.preprocess import PreprocessRequest, PreprocessResponse
 from app.schemas.qa import QARequest, QAResponse
 from app.schemas.sentiment import SentimentLabel, SentimentRequest, SentimentResponse
 from app.schemas.summarize import SummarizeRequest, SummarizeResponse
@@ -21,7 +22,8 @@ __all__ = [
     "KeywordItem",
     "KeywordsRequest",
     "KeywordsResponse",
-    "QARequest",
+    "PreprocessRequest",
+    "PreprocessResponse",
     "QAResponse",
     "SentimentLabel",
     "SentimentRequest",

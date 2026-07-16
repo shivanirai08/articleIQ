@@ -40,6 +40,7 @@ articleIQ/
 | Typed config / `.env` | Done (Checkpoint 4) — pydantic-settings |
 | Next.js app | Done (Checkpoint 5) — shell + backend health check |
 | API contracts | Done (Checkpoint 6) — Pydantic + TypeScript + validate demo |
+| NLP preprocessing (O1) | Done (Checkpoint 7) — `POST /api/v1/preprocess` |
 | NLP / LLM features | Later checkpoints |
 
 ## How to run (backend — Checkpoint 3)

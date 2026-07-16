@@ -2,11 +2,12 @@
 
 from fastapi import APIRouter
 
-from app.api.v1 import validate
+from app.api.v1 import preprocess, validate
 
 api_router = APIRouter()
 
 api_router.include_router(validate.router)
+api_router.include_router(preprocess.router)
 
 
 @api_router.get("/ping", tags=["system"])

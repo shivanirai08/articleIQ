@@ -1,4 +1,5 @@
 import { BackendStatus } from "@/components/BackendStatus";
+import { PreprocessArticleForm } from "@/components/PreprocessArticleForm";
 import { ValidateArticleForm } from "@/components/ValidateArticleForm";
 import { apiBaseUrl } from "@/lib/config";
 
@@ -7,7 +8,7 @@ export default function HomePage() {
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
       <header className="space-y-3">
         <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent)]">
-          ArticleIQ · Checkpoint 6
+          ArticleIQ · Checkpoint 7
         </p>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Intelligent News Summarization &amp; Sentiment Analysis
@@ -15,11 +16,13 @@ export default function HomePage() {
         <p className="text-base leading-relaxed text-[var(--muted)]">
           Interactive web interface for NLP preprocessing, summaries, sentiment,
           keywords, entities, and article Q&amp;A. Feature panels arrive in later
-          checkpoints — this page proves shared API contracts and backend connectivity.
+          checkpoints — this page demonstrates preprocessing (O1) and API contracts.
         </p>
       </header>
 
       <BackendStatus />
+
+      <PreprocessArticleForm />
 
       <ValidateArticleForm />
 
@@ -41,7 +44,7 @@ export default function HomePage() {
       <section className="rounded-xl border border-dashed border-[var(--border)] p-5 text-sm text-[var(--muted)]">
         <h2 className="font-semibold text-[var(--foreground)]">Coming next</h2>
         <ul className="mt-2 list-inside list-disc space-y-1">
-          <li>Checkpoint 7 — NLP text preprocessing pipeline</li>
+          <li>Checkpoint 8 — spaCy NLP pipeline (tokenization, sentences)</li>
           <li>Checkpoint 9+ — Gemini integration</li>
           <li>Checkpoint 16 — full article analysis UI</li>
         </ul>
