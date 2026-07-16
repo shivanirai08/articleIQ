@@ -27,7 +27,6 @@ Large volumes of online news make it difficult for users to quickly understand i
 articleIQ/
 ├── backend/     # FastAPI + NLP + LLM services (Python)
 ├── frontend/    # Next.js interactive web UI (TypeScript)
-├── docs/        # Local learning notes (gitignored — not part of submission history)
 └── README.md    # This file
 ```
 
@@ -38,7 +37,7 @@ articleIQ/
 | Planning & architecture | Done (Checkpoint 1) |
 | Folder structure | Done (Checkpoint 2) |
 | FastAPI app | Done (Checkpoint 3) — `/health`, `/api/v1/ping`, `/docs` |
-| Typed config / `.env` | Not started (Checkpoint 4) |
+| Typed config / `.env` | Done (Checkpoint 4) — pydantic-settings |
 | Next.js app | Not started (Checkpoint 5) |
 | NLP / LLM features | Later checkpoints |
 
@@ -53,6 +52,8 @@ uvicorn app.main:app --reload --port 8000
 ```
 
 Then open http://localhost:8000/docs
+
+**Config:** copy `backend/.env.example` to `backend/.env` before running.
 
 Frontend run instructions arrive in Checkpoint 5.
 

@@ -1,10 +1,9 @@
-# ArticleIQ backend dependencies (Checkpoint 3+)
+# ArticleIQ backend dependencies
 #
-# fastapi  - HTTP API framework (routes, validation, OpenAPI docs)
-# uvicorn  - ASGI server that runs the FastAPI app
-#
-# Pinned after successful local install for academic reproducibility.
-# Later checkpoints will add: pydantic-settings, spacy, Gemini SDK, pytest, httpx, ...
+# fastapi           - HTTP API framework
+# uvicorn           - ASGI server
+# pydantic-settings - typed .env / environment configuration (Checkpoint 4)
 
 fastapi==0.139.0
 uvicorn[standard]==0.51.0
+pydantic-settings==2.13.1
