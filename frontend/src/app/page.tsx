@@ -3,16 +3,23 @@ import { BackendStatus } from "@/components/BackendStatus";
 
 export default function HomePage() {
   return (
-    <main className="mx-auto min-h-screen max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
-      <header className="mb-8 space-y-4">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">ArticleIQ</h1>
-          <p className="text-sm text-[var(--muted)]">
-            Summarize news, detect sentiment, extract keywords &amp; entities, and ask
-            questions — powered by NLP and LLMs.
-          </p>
+    <main className="mx-auto min-h-screen max-w-5xl px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-14">
+      <header className="animate-fade-up mb-10">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="max-w-2xl">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
+              News intelligence
+            </p>
+            <h1 className="font-display text-4xl font-semibold tracking-tight text-[var(--ink)] sm:text-5xl">
+              ArticleIQ
+            </h1>
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
+              Paste a story. Get a clear summary, sentiment, keywords, and entities —
+              then ask questions grounded in the article.
+            </p>
+          </div>
+          <BackendStatus />
         </div>
-        <BackendStatus />
       </header>
 
       <ArticleAnalysisWorkspace />
